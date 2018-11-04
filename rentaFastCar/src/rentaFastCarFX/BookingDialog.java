@@ -2,8 +2,6 @@ package rentaFastCarFX;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -34,6 +32,7 @@ public class BookingDialog extends Dialog<ButtonType> {
 	private final TableView<BookingProperty> mieteTable = new TableView<>();
 	public ObservableList<BookingProperty> bookingList;
 
+	// erzeugen der GUI elemente für die Anzeige
 	Button mieteStarten = new Button("Neue Miete Starten");
 	Button mieteBeenden = new Button("Miete Beenden");
 	Button mieteAnzeigen = new Button("Liste aller Mieten");
@@ -43,7 +42,7 @@ public class BookingDialog extends Dialog<ButtonType> {
 
 	public BookingDialog() {
 
-		//TableView für Anzeige der Mieten
+		// TableView für die Anzeige der Mieten aus DB
 		// CreateBookingTableView();
 		this.setTitle("MIETE");
 		mieteTable.setEditable(false);
@@ -76,6 +75,8 @@ public class BookingDialog extends Dialog<ButtonType> {
 		mieteTable.getColumns().addAll(mietID, autoId, kundenID, name, kennzeichen, uebergabeDatum, ruecknahmeDatum,
 				gesamtPreis);
 		mieteTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		
+		//Buttons
 		mtButtons.setSpacing(320);
 		mtButtons.getChildren().addAll(mieteStarten, mieteBeenden, mieteAnzeigen);
 		mtButtons.setPadding(new Insets(50, 100, 50, 100));
@@ -95,7 +96,6 @@ public class BookingDialog extends Dialog<ButtonType> {
 		});
 
 		//Dialogaufruf für Ende des Mietprozesses
-		
 		mieteBeenden.setOnAction(e -> {
 			if (mieteTable.getSelectionModel().getSelectedItem() != null) {
 				new FinishBookingDialog(mieteTable.getSelectionModel().getSelectedItem(), b).showAndWait();
@@ -108,8 +108,8 @@ public class BookingDialog extends Dialog<ButtonType> {
 			}
 		});
 
+		//Anzeige aller Mieten im neuen Dialog
 		mieteAnzeigen.setOnAction(ea -> {
-			
 			try {
 				ArrayList<Booking> bookList = BookingDatabase.getBookingList();
 				bookingList = (FXCollections.observableArrayList());
@@ -123,7 +123,7 @@ public class BookingDialog extends Dialog<ButtonType> {
 			mieteTable.setItems(bookingList);
 		});
 		
-		
+		//Layout für das Dialog, ordnen der GUI Elemente
 		mieteView.getChildren().addAll(mieteTable, mtButtons);
 		this.getDialogPane().setContent(mieteView);
 		ButtonType cancel = ButtonType.CANCEL;

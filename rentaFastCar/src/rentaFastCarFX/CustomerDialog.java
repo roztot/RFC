@@ -28,6 +28,7 @@ public class CustomerDialog extends Dialog<ButtonType> {
 
 	private final TableView<CustomerProperty> kundenTable = new TableView<>();
 	private ObservableList<CustomerProperty> customerList;
+	//Erzeugung der GUI Elemente
 	Button neu = new Button("Neu");
 	Button bearbeiten = new Button("Bearbeiten");
 	Button loeschen = new Button("Entfernen");
@@ -40,8 +41,10 @@ public class CustomerDialog extends Dialog<ButtonType> {
 
 		this.setTitle("KUNDEN VERWALTEN");
 
+		//Aufruf der TableView für die Auflistung der Kunden aus der DB
 		CreateCustomerTableView();
 
+		//Dialog um neue Kunden hinzuzufügen
 		neu.setOnAction(e -> {
 
 			Optional<Customer> cust = new CreateCustomerDialog(customerN).showAndWait();
@@ -60,7 +63,7 @@ public class CustomerDialog extends Dialog<ButtonType> {
 			}
 		});
 
-		// gleiches Dialog nur befüllt
+		// gleiches Dialog nur befüllt, für die Bearbeitung der einzelnen Kunden
 
 		bearbeiten.setOnAction(e -> {
 			if (kundenTable.getSelectionModel().getSelectedItem() != null) {
@@ -95,6 +98,7 @@ public class CustomerDialog extends Dialog<ButtonType> {
 			}
 		});
 
+		//Entfernen eines Kunden aus DB -> es kann nur entfernt werden wenn noch nichts gemietet-> Alert
 		loeschen.setOnAction(e -> {
 			if (kundenTable.getSelectionModel().getSelectedItem() != null) {
 				try {
@@ -128,6 +132,7 @@ public class CustomerDialog extends Dialog<ButtonType> {
 
 	}
 
+	//TableView für die Kundenliste
 	@SuppressWarnings("unchecked")
 	private void CreateCustomerTableView() {
 
@@ -164,6 +169,7 @@ public class CustomerDialog extends Dialog<ButtonType> {
 
 	}
 
+	//Löschen des Kunden aus der Table und DB
 	public void deleteButtonClicked() {
 		ObservableList<CustomerProperty> cutomerSelected, allCustomer;
 		allCustomer = kundenTable.getItems();

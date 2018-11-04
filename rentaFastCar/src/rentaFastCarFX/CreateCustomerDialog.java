@@ -25,6 +25,7 @@ import rentaFastCar.Customer;
 
 public class CreateCustomerDialog extends Dialog<Customer> {
 
+	//GUI Elemente
 	GridPane gridKunde = new GridPane();
 	static Label lbKdId = new Label();
 	static DatePicker dp = new DatePicker();
@@ -39,7 +40,7 @@ public class CreateCustomerDialog extends Dialog<Customer> {
 
 		int kundenId = customer.getKundenId();
 		this.setTitle("KUNDEN ANLEGEN");
-
+		
 		gridKunde.setPadding(new Insets(5, 5, 5, 5));
 		gridKunde.setVgap(10);
 		gridKunde.setHgap(10);
@@ -49,10 +50,11 @@ public class CreateCustomerDialog extends Dialog<Customer> {
 		gridKunde.addRow(3, new Label("Geburtsdatum:"), dp);
 		gridKunde.addRow(4, new Label("Fuererscheinnummer:"), txFuer);
 
+		//Befüllung der Felder wenn der Kunde schon angelegt wurde-> Änderung
 		lbKdId.setText(customer.getKundenId() + "");
 		txName.setText(customer.getName());
 		txAdr.setText(customer.getAdresse());
-		// dp.getUserData();
+		//dp.setUserData(customer.getGeburtsDatum()); -> Datum wird dadurch nicht angezeigt
 		txFuer.setText(customer.getFuehrerscheinNummer());
 
 		bp.setPrefSize(100, 50);
@@ -74,6 +76,7 @@ public class CreateCustomerDialog extends Dialog<Customer> {
 
 		});
 
+		//Gibt ein neues Kundenobjekt zurück für die speicherung in der DB
 		this.setResultConverter(new Callback<ButtonType, Customer>() {
 
 			@Override
@@ -114,9 +117,10 @@ public class CreateCustomerDialog extends Dialog<Customer> {
 	}
 
 	public CreateCustomerDialog(Optional<Customer> customer) {
-		// TODO Auto-generated constructor stub
+
 	}
 
+	// Erster versuch :
 	// Textfelder befüllen aus der TableView
 	// public void fillTextFields() {
 	// CustomerProperty cusp =

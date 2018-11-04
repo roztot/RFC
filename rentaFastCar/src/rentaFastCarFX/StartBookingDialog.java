@@ -1,18 +1,14 @@
 package rentaFastCarFX;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -23,10 +19,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import rentaFastCar.Car;
 import rentaFastCarDB.BookingDatabase;
@@ -36,7 +38,8 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 	private final TableView<CarProperty> autosTable = new TableView<>();
 	private ObservableList<CarProperty> carList;
 
-
+// erzeugen der GUI elemente für die Anzeige
+	
 	Button anzeigen = new Button("Anzeigen");
 	Button auswahl = new Button("Auswählen");
 	Label lbAuto = new Label("Auswahl Auto ");
@@ -47,13 +50,15 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 	DatePicker dpR = new DatePicker();
 	ComboBox<String> cbKat = new ComboBox();
 	GridPane gridStart = new GridPane();
+	BorderPane bPane = new BorderPane();
 	VBox startView = new VBox();
 
+	
 	@SuppressWarnings("unchecked")
 	StartBookingDialog() {
 		
+		// TableView für die Anzeige der Autos aus DB
 		this.setTitle("MIETE STARTEN");
-		TableView<CarProperty> autosTable = new TableView<>();
 		autosTable.setEditable(false);
 		TableColumn<CarProperty, Integer> autoId = new TableColumn("AutoId");
 		autoId.setCellValueFactory(new PropertyValueFactory<>("autoId"));
@@ -74,6 +79,7 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 		kategorie.setCellValueFactory(new PropertyValueFactory<>("kategorie"));
 		kategorie.setMinWidth(200);
 		autosTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		try {
 			ArrayList<Car> carsList = BookingDatabase.loadCarsList();
 			
@@ -90,6 +96,8 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 		autosTable.setItems(carList);
 		autosTable.getColumns().addAll(autoId, kennzeichen, model, kilometer, preisProTag, kategorie);
 		
+		
+		//Befüllen der ComboBox für die Selektion
 		ArrayList<String> listKat;
 		try {
 			listKat = BookingDatabase.chooseCategories();
@@ -100,7 +108,7 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 			return;
 		}
 
-		//Auswahl Kategorie und verfühgbare Autos
+		//Auswahl Kategorie und verfühgbare Autos durch ComboBox und DatePicker
 		cbKat.setItems(FXCollections.observableArrayList(listKat));
 		anzeigen.setOnAction(e -> {
 			try {
@@ -159,19 +167,23 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 			}
 		});
 		
+		//Layout für das Dialog, ordnen der GUI Elemente
 		gridStart.setPadding(new Insets(20, 20, 20, 20));
 		gridStart.setVgap(50);
 		gridStart.setHgap(50);
 		gridStart.addRow(0, lbAuto);
-		gridStart.addRow(1, lbKat, cbKat);
-		gridStart.addRow(2, anzeigen);
-		gridStart.addRow(3, lbDatV, dpU, lbDatB, dpR);
-		
-
-		startView.getChildren().addAll(gridStart, autosTable, auswahl);
+		gridStart.addRow(1, lbKat, cbKat,lbDatV, dpU,lbDatB, dpR, anzeigen);
+		bPane.setCenter(autosTable);
+		bPane.setTop(startView);
+		auswahl.setPadding(new Insets(10, 10, 10, 10));
+		auswahl.setBorder((new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
+		bPane.setBottom(auswahl);
+		bPane.setMargin(auswahl, new Insets(20, 20, 20, 20));
+		startView.getChildren().addAll(gridStart);
 		startView.setPadding(new Insets(20, 20, 20, 20));
 		startView.setSpacing(20);
-		this.getDialogPane().setContent(startView);
+		this.getDialogPane().setContent(bPane);
 		ButtonType cancel = ButtonType.CANCEL;
 		this.getDialogPane().getButtonTypes().add(cancel);
 

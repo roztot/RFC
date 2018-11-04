@@ -19,6 +19,7 @@ public class InvoiceDialog extends Dialog<ButtonType>{
 	
 	InvoiceDialog(BookingProperty bp, Booking b){
 	
+		//Booking Objekt
 		try {
 			b = BookingDatabase.getBooking(bp.getMietId(), bp.getAutoId(), bp.getKundenId());
 		} catch (SQLException e) {
@@ -26,6 +27,7 @@ public class InvoiceDialog extends Dialog<ButtonType>{
 			e.printStackTrace();
 		}
 		
+		//Erzeugen der Gui Elemente für die Anzeige des Rechnungstextes
 		this.setTitle("Rechnung");
 		Label lbId = new Label();
 		Label lbName = new Label();
@@ -47,6 +49,7 @@ public class InvoiceDialog extends Dialog<ButtonType>{
 	
 		lbPreisProTag.setText("Preis pro Tag beträgt: " + b.getPreisProTag());
 	   
+		//Abfragen und Kalkulation des Endbetrages nach Userauswahl im CheckBoxen
 		if(b.getTankstand()== false && b.getSchaeden() == false) {
 		lbTextTank.setText(" Auto nicht vollgetankt! Tankgebühr: " + b.getGesamtPreis()*0.2 + " EUR");
 		lbSchaden.setText("Bravo! Sie haben das Auto unbeschädigt returniert. Diesmal gibt es keinen Schadensgebühr!");
@@ -73,6 +76,7 @@ public class InvoiceDialog extends Dialog<ButtonType>{
 		}
 		}
 		
+		//Anzeige des Rechnungs als Text
 		TextArea txaRg = new TextArea("RentaFastCar GmbH Wien " + '\n'
 		 + "" + '\n'
 		 + "Kunde: " + lbName.getText() + '\n'
@@ -102,6 +106,7 @@ public class InvoiceDialog extends Dialog<ButtonType>{
 		 +"Die Leistung wurde im Zeitraum zwischen Übergabe und Rücknahme erbracht. "  + '\n'
 		 +"Der Rechnungsbetrag wird von Ihrem Konto abgebucht. " + '\n');
 		 
+		//Anordnung der GUI Elemente
 		BorderPane gP = new BorderPane();
 		gP.setPadding(new Insets(10));
 		gP.setCenter(txaRg);

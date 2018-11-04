@@ -19,6 +19,7 @@ import rentaFastCar.Customer;
 import rentaFastCarDB.BookingDatabase;
 
 public class FinishBookingDialog extends Dialog<ButtonType> {
+	//Erzeugung der GUi Elemente
 	Label lbAuto = new Label("Rückgabe Auto ");
 	Label lbKm = new Label("Kilometerstand");
 	Label lbTank = new Label("Auto vollgetankt");
@@ -34,7 +35,7 @@ public class FinishBookingDialog extends Dialog<ButtonType> {
 	FinishBookingDialog(BookingProperty bp, Booking b) {
 
 		this.setTitle("MIETE BEENDEN");
-
+		//Update der ausgewählen Mieten in der DB über das TextField und CheckBoxen
 		mieteBeenden.setMinSize(100, 40);
 		mieteBeenden.setOnAction(e -> {
 			if(!(txfKm.getText() == null || txfKm.getText().length() == 0 )){
@@ -75,6 +76,7 @@ public class FinishBookingDialog extends Dialog<ButtonType> {
 			}		
 		});
 
+		//Anordnung der GUI Elemente für die Anzeige
 		gridEnd.addRow(0, lbAuto);
 		gridEnd.addRow(1, lbKm, txfKm);
 		gridEnd.addRow(2, lbTank, cbTank);

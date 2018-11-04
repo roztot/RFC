@@ -24,6 +24,7 @@ import rentaFastCar.Car;
 
 public class CreateCarDialog extends Dialog<Car> {
 
+	//GUI Elemente
 	GridPane gridAutos = new GridPane();
 	static Label lbAutoId = new Label();
 	static TextField txKenZ = new TextField();
@@ -49,6 +50,7 @@ public class CreateCarDialog extends Dialog<Car> {
 		gridAutos.addRow(4, new Label("Preis pro Tag:"), txPpT);
 		gridAutos.addRow(5, new Label("Kategorie:"), txKat);
 
+		//Befüllung der Felder wenn das Auto schon angelegt wurde->Änderung
 		lbAutoId.setText(car.getAutoId() + "");
 		txKenZ.setText(car.getKennzeichen());
 		txModel.setText(car.getModel());
@@ -74,6 +76,8 @@ public class CreateCarDialog extends Dialog<Car> {
 
 		});
 
+		//Gibt ein neues Ato für die speicherung in der DB zurück
+		//Nur int oder double darf eingegeben werden -> Alert
 		this.setResultConverter(new Callback<ButtonType, Car>() {
 			int iD;
 			double pPT;
@@ -107,7 +111,7 @@ public class CreateCarDialog extends Dialog<Car> {
 			
 			});
 	}
-
+	//Alle Textfelder müssen befüllt seint, sonst kommt eine Warnung
 	private boolean isInputValid() {
 		Boolean b = false;
 		
@@ -132,6 +136,11 @@ public class CreateCarDialog extends Dialog<Car> {
 
 	}
 }
+
+
+
+
+// Erster Versuch:
 // Textfelder befüllen aus der TableView
 // public static void fillTextFields() {
 // CarProperty carp =

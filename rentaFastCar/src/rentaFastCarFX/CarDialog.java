@@ -25,6 +25,8 @@ public class CarDialog extends Dialog<ButtonType> {
 
 	private final TableView<CarProperty> autosTable = new TableView<>();
 	public ObservableList<CarProperty> carList;
+	
+	//Gui Elemente + Carobject
 	Button neu = new Button("Neu");
 	Button bearbeiten = new Button("Bearbeiten");
 	HBox atButtons = new HBox();
@@ -37,7 +39,7 @@ public class CarDialog extends Dialog<ButtonType> {
 
 		// Aufruf der TableView
 		CreateCarTableView();
-		// Anzeige zum hinzufügen der Autos
+		// Anzeige zum hinzufügen der Autos -> gibt ein neues Auto in die DB
 		neu.setOnAction(e -> {
 			Optional<Car> newCar = new CreateCarDialog(car).showAndWait();
 			if (newCar.isPresent()) {
@@ -55,7 +57,7 @@ public class CarDialog extends Dialog<ButtonType> {
 
 		});
 
-		// Anzeige zum Bearbeiten der Autos
+		// Anzeige zum Bearbeiten der Autos, gleiches Dialog nur befüllt-> ändert Objekt in der DB und die Table
 		bearbeiten.setOnAction(e -> {
 			if (autosTable.getSelectionModel().getSelectedItem() != null) {
 				CarProperty carp = autosTable.getSelectionModel().getSelectedItem();
@@ -122,6 +124,7 @@ public class CarDialog extends Dialog<ButtonType> {
 
 	}
 
+	//TableView für die Anzeige der Autos aus DB
 	@SuppressWarnings("unchecked")
 	private void CreateCarTableView() {
 
@@ -162,6 +165,7 @@ public class CarDialog extends Dialog<ButtonType> {
 		autosTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	}
 
+	//Löschen eines Autos aus der DB und der TableView
 	public void deleteButtonClicked() {
 		ObservableList<CarProperty> carSelected, allCars;
 		allCars = autosTable.getItems();

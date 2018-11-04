@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -24,9 +24,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import rentaFastCar.Booking;
 import rentaFastCar.Customer;
 import rentaFastCarDB.BookingDatabase;
@@ -37,6 +43,8 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 	private  ObservableList<CustomerProperty> customerList;
 	private  FilteredList<CustomerProperty> filteredData;
 	private  SortedList<CustomerProperty> sortedData;
+	
+	// erzeugen der GUI elemente für die Anzeige
 	GridPane gridChoose = new GridPane();
 	Label lblKdId = new Label("KundenId");
 	Label lblKdName = new Label("Name");
@@ -50,13 +58,12 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 	BorderPane bPane = new BorderPane();
 	Booking b = new Booking();
 
+	
 	@SuppressWarnings("unchecked")
 	ChooseCustomerDialog(CarProperty cp, DatePicker dpU, DatePicker dpR) {
-
-
+		
+		// TableView für die Anzeige der Kunden aus DB
 		this.setTitle("MIETE STARTEN");
-
-		TableView<CustomerProperty> kundenTable = new TableView<>();
 		kundenTable.setEditable(true);
 		TableColumn<CustomerProperty, Integer> kundenId = new TableColumn("KundenID");
 		kundenId.setCellValueFactory(new PropertyValueFactory<>("kundenID"));
@@ -75,6 +82,7 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 		fuererschein.setMinWidth(200);
 		kundenTable.getColumns().addAll(kundenId, name, adresse, geburtsdatum, fuererschein);
 		kundenTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		try {
 			ArrayList<Customer> cusList = BookingDatabase.loadCustomerList();
 			customerList= FXCollections.observableArrayList();
@@ -86,16 +94,9 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 			e.printStackTrace();
 		}
 		kundenTable.setItems(customerList);
-		gridChoose.setPadding(new Insets(10, 10, 10, 10));
-		gridChoose.setHgap(20);
-		gridChoose.setVgap(20);
-		gridChoose.add(lblKdId, 0, 0);
-		gridChoose.add(txCustId, 0, 1);
-		gridChoose.add(lblKdName, 0, 2);
-		gridChoose.add(txCustName, 0, 3);
-		bAnzeigen.setPadding(new Insets(5, 10, 5, 10));
+	
 
-		//TextField  Suche
+		//TextField  Filter für die Suche mit den Namen
 		filteredData = new FilteredList<>(customerList, p -> true);
 		txCustName.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(str -> {
 			if (newValue == null || newValue.isEmpty())
@@ -109,6 +110,7 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 		sortedData.comparatorProperty().bind(kundenTable.comparatorProperty());
 		kundenTable.setItems(sortedData);
 
+		//TextField  Filter für die Suche mit der KundenId
 		txCustId.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(id -> {
 			if (newValue == null || newValue.isEmpty())
 				return true;
@@ -120,10 +122,9 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 		sortedData.comparatorProperty().bind(kundenTable.comparatorProperty());
 		kundenTable.setItems(sortedData);
 
-		bAnzeigen.setOnAction(e -> {
-
-
-		});
+//		Button wird nicht verwendet, da die Suche im TextField automatisch passiert
+//		bAnzeigen.setOnAction(e -> {
+//		});
 
 
 		//Konversion von LocalDate auf SQL Date
@@ -134,10 +135,11 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 		Date dateR = java.sql.Date.valueOf(dpR.getValue());
 		
 		//CustomerProperty cusp = kundenTable.getSelectionModel().getSelectedItem();
+		//Berechnung des Endbetrages
 		double miettageGes = Period.between(d1, d2).getDays();
 		double gP = miettageGes * cp.getpreisProTag().doubleValue();
 
-
+		//Neue Miete wird in die DB gespeichert
 		mieteStarten.setOnAction(e -> {
 			System.out.println("Text");
 			if(!(kundenTable.getSelectionModel().getSelectedItem()== null) ){
@@ -167,11 +169,26 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 			}
 		});
 
+		//Layout für das Dialog, ordnen der GUI Elemente
+		gridChoose.setPadding(new Insets(10, 10, 10, 10));
+		gridChoose.setHgap(20);
+		gridChoose.setVgap(20);
+		gridChoose.add(lblKdId, 0, 0);
+		gridChoose.add(txCustId, 0, 1);
+		gridChoose.add(lblKdName, 0, 2);
+		gridChoose.add(txCustName, 0, 3);
+		bAnzeigen.setPadding(new Insets(5, 10, 5, 10));
 		mieteStarten.setPadding(new Insets(20, 20, 20, 20));
-		chooseView.getChildren().addAll(lbAusw, gridChoose,mieteStarten);
+		mieteStarten.setBorder((new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
+		chooseView.getChildren().addAll(gridChoose,mieteStarten);
 		chooseView.setSpacing(20);
+		bPane.setTop(lbAusw);
+		bPane.setAlignment(lbAusw, Pos.TOP_CENTER);
+		bPane.setMargin(lbAusw, new Insets(12,12,12,12));
 		bPane.setCenter(kundenTable);
 		bPane.setLeft(chooseView);
+		
 		this.getDialogPane().setContent(bPane);
 		ButtonType cancel = ButtonType.CANCEL;
 		this.getDialogPane().getButtonTypes().add(cancel);

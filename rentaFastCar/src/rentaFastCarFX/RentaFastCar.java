@@ -38,6 +38,8 @@ public class RentaFastCar extends Application{
 //		}
 
 	}
+	
+	//Hauptfenster
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
