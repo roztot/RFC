@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Nov 04 16:48:01 CET 2018:
+Booten von Derby-Version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): Instanz a816c00e-0166-df68-d576-0000063b5108
+für Datenbankverzeichnis C:\Eclipse_Databases\DB mit Class Loader sun.misc.Launcher$AppClassLoader@6d06d69c
+Geladen aus file:/C:/Program%20Files/Java/jdk1.8.0_161/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_161-b12
+user.dir=C:\Users\Zitta\git\RFC\rentaFastCar
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
