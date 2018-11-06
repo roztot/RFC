@@ -78,7 +78,6 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 		TableColumn<CarProperty, String> kategorie = new TableColumn("Kategorie");
 		kategorie.setCellValueFactory(new PropertyValueFactory<>("kategorie"));
 		kategorie.setMinWidth(200);
-		autosTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		try {
 			ArrayList<Car> carsList = BookingDatabase.loadCarsList();
@@ -95,7 +94,7 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 		}
 		autosTable.setItems(carList);
 		autosTable.getColumns().addAll(autoId, kennzeichen, model, kilometer, preisProTag, kategorie);
-		
+		autosTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		//Befüllen der ComboBox für die Selektion
 		ArrayList<String> listKat;
@@ -175,6 +174,7 @@ public class StartBookingDialog extends Dialog<ButtonType> {
 		gridStart.addRow(1, lbKat, cbKat,lbDatV, dpU,lbDatB, dpR, anzeigen);
 		bPane.setCenter(autosTable);
 		bPane.setTop(startView);
+		anzeigen.setPadding(new Insets(10,10,10,10));
 		auswahl.setPadding(new Insets(10, 10, 10, 10));
 		auswahl.setBorder((new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));

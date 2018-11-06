@@ -78,7 +78,7 @@ public class BookingDialog extends Dialog<ButtonType> {
 		
 		//Buttons
 		mtButtons.setSpacing(320);
-		mtButtons.getChildren().addAll(mieteStarten, mieteBeenden, mieteAnzeigen);
+		mtButtons.getChildren().addAll(mieteStarten, mieteAnzeigen, mieteBeenden);
 		mtButtons.setPadding(new Insets(50, 100, 50, 100));
 		mieteStarten.setMinSize(150, 70);
 		mieteStarten.setBorder(new Border(

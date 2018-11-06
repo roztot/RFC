@@ -311,7 +311,7 @@ public class BookingDatabase {
 			throws SQLException {
 
 		ArrayList<Car> carsList = new ArrayList<Car>();
-
+		ArrayList<Car> finalCarList = new ArrayList<>();
 		Connection conn = null;
 		Statement stmt = null;
 
@@ -319,7 +319,7 @@ public class BookingDatabase {
 			conn = DriverManager.getConnection(connString);
 			stmt = conn.createStatement();
 
-			String query = "SELECT * FROM AUTO, MIETE WHERE  ";
+			String query = "SELECT * FROM AUTO WHERE  ";
 			if (kategorie != null) {
 				query += "  AUTO.KATEGORIE = '"+kategorie+"'";
 				
@@ -331,21 +331,28 @@ public class BookingDatabase {
 						rs.getInt("KILOMETER"), rs.getDouble("PREIS_PRO_TAG"), rs.getString("KATEGORIE"));
 
 				carsList.add(car);
-				
-				ArrayList<Car> finalCarList = new ArrayList<>();
-				
+			}
 				for (Car c : carsList) {
 					query = "SELECT * FROM MIETE WHERE MIETE.AUTOID = " + c.getAutoId();
-					
+					boolean autoFound = false;
 					rs = stmt.executeQuery(query);
 					while (rs.next()) {
-						if(rs.getDate("RUECKNAHME").after( java.sql.Date.valueOf(uebergabe)) ||
-			                      java.sql.Date.valueOf(ruecknahme).before(rs.getDate("UEBERGABE")))
+						autoFound = true;
+						java.sql.Date rd = rs.getDate("RUECKNAHME");
+						java.sql.Date ud = rs.getDate("UEBERGABE");
+						
+						if(rs.getDate("RUECKNAHME").before( java.sql.Date.valueOf(uebergabe)) ||
+			                      java.sql.Date.valueOf(ruecknahme).before(rs.getDate("UEBERGABE"))) {
 
 			                            finalCarList.add(c); 
 						
-					}
+//					}else {
+//						finalCarList.add(car);
+				
 				}
+				}
+					if(autoFound == false)
+						finalCarList.add(c);
 					
 			}
 			
@@ -362,7 +369,7 @@ public class BookingDatabase {
 				e.printStackTrace();
 			}
 		}
-		return carsList;
+		return finalCarList;
 	}
 
 

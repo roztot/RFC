@@ -142,7 +142,7 @@ public class ChooseCustomerDialog extends Dialog<ButtonType> {
 		//Neue Miete wird in die DB gespeichert
 		mieteStarten.setOnAction(e -> {
 			System.out.println("Text");
-			if(!(kundenTable.getSelectionModel().getSelectedItem()== null) ){
+			if(kundenTable.getSelectionModel().getSelectedItem()!= null) {
 
 				b.setAutoId(cp.getAutoId());
 				b.setKundenId(kundenTable.getSelectionModel().getSelectedItem().getKundenId());

@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="rentaFastCarFX.CustomerDialog" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCarFX/CustomerDialog.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="521" y="930"/>    
+    <position height="-1" width="-1" x="1185" y="564"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="rentaFastCarFX.CarDialog" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCarFX/CarDialog.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="356" y="927"/>    
+    <position height="-1" width="-1" x="1319" y="237"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="rentaFastCarFX.BookingDialog" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCarFX/BookingDialog.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="545" y="783"/>    
+    <position height="-1" width="-1" x="943" y="892"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,16 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="rentaFastCar.Invoice" project="rentaFastCar" 
-    file="/rentaFastCar/src/rentaFastCar/Invoice.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-857" y="360"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="11" language="java" name="rentaFastCar.Customer" project="rentaFastCar" 
+  <class id="10" language="java" name="rentaFastCar.Customer" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCar/Customer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="496" width="258" x="-979" y="641"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="rentaFastCar.Car" project="rentaFastCar" 
+  <class id="11" language="java" name="rentaFastCar.Car" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCar/Car.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="616" width="290" x="-318" y="234"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="rentaFastCar.Booking" project="rentaFastCar" 
+  <class id="12" language="java" name="rentaFastCar.Booking" project="rentaFastCar" 
     file="/rentaFastCar/src/rentaFastCar/Booking.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="556" width="349" x="-708" y="50"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,22 +109,22 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="14" language="java" name="application" project="rentaFastCar" file="/rentaFastCar/src/application" 
+  <package id="13" language="java" name="application" project="rentaFastCar" file="/rentaFastCar/src/application" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="944" y="12"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="15" language="java" name="rentaFastCar" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCar" 
+  <package id="14" language="java" name="rentaFastCar" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCar" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-538" y="8"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="16" language="java" name="rentaFastCarDB" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCarDB" 
+  <package id="15" language="java" name="rentaFastCarDB" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCarDB" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="739" y="11"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="17" language="java" name="rentaFastCarFX" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCarFX" 
+  <package id="16" language="java" name="rentaFastCarFX" project="rentaFastCar" file="/rentaFastCar/src/rentaFastCarFX" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="189" y="11"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
